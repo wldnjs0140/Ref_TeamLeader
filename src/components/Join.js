@@ -1,7 +1,6 @@
-import React from "react";
-import { useRef } from "react";
+import React, { useState, useRef } from "react";
 
-function Join({ goToHome }) {
+function Join({ goToLogin }) {
   const inputId = useRef();
   const inputPass = useRef();
   const inputPass2 = useRef();
@@ -12,46 +11,151 @@ function Join({ goToHome }) {
   const inputPh2 = useRef();
   const inputPh3 = useRef();
   const inputAddr = useRef();
-  const inputGender = useRef();
   const inputJumin1 = useRef();
   const inputJumin2 = useRef();
 
-  const JoinProc = () => {
-    const idRef = inputId.current.value.trim();
-    const passRef1 = inputPass.current.value.trim();
-    const passRef2 = inputPass2.current.value.trim();
-    const nameRef = inputName.current.value.trim();
-    const email1Ref = inputEmail1.current.value.trim();
-    const email2Ref = inputEmail2.current.value.trim();
-    const ph1Ref = inputPh1.current.value.trim();
-    const ph2Ref = inputPh2.current.value.trim();
-    const ph3Ref = inputPh3.current.value.trim();
-    const addrRef = inputAddr.current.value.trim();
-    const genderRef = inputGender.current.value.trim();
-    const jumin1Ref = inputJumin1.current.value.trim();
-    const jumin2Ref = inputJumin2.current.value.trim();
+  const [gender, setGender] = useState(""); // 성별을 관리하는 상태 변수
 
-    if (
-      !idRef ||
-      !passRef1 ||
-      !passRef2 ||
-      !nameRef ||
-      !email1Ref ||
-      !email2Ref ||
-      !ph1Ref ||
-      !ph2Ref ||
-      !ph3Ref ||
-      !addrRef ||
-      !genderRef ||
-      !jumin1Ref ||
-      !jumin2Ref
-    ) {
-      alert("공백을 채워주세요!");
-    } else {
-      alert("회원가입 완료!");
-      goToHome();
+  const idCheck = async () => {
+    const id = inputId.current.value;
+
+    if (!id) {
+      alert("아이디를 입력해주세요.");
+      inputId.current.focus();
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:84/idCheck", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result) {
+        alert("사용 가능한 아이디 입니다.");
+        inputPass.current.focus();
+      } else {
+        alert("이미 사용중인 아이디 입니다.");
+        inputId.current.value = ""; // 아이디 입력창 비우기
+        inputId.current.focus(); // 포커스를 아이디 입력창으로 이동
+      }
+    } catch (error) {
+      console.error("아이디 중복 확인 오류:", error);
     }
   };
+
+  const handleGenderClick = (selectedGender) => {
+    // 성별 토글 처리
+    if (gender === selectedGender) {
+      setGender(""); // 선택 취소
+    } else {
+      setGender(selectedGender); // 선택된 성별로 설정
+    }
+  };
+
+  const JoinProc = () => {
+    const userData = {
+      id: inputId.current.value,
+      password: inputPass.current.value,
+      confirmPassword: inputPass2.current.value,
+      name: inputName.current.value,
+      email: `${inputEmail1.current.value}@${inputEmail2.current.value}`,
+      phone: `${inputPh1.current.value}-${inputPh2.current.value}-${inputPh3.current.value}`,
+      address: inputAddr.current.value,
+      gender: gender, // 성별 값
+      jumin: `${inputJumin1.current.value}-${inputJumin2.current.value}`,
+    };
+
+    // 공백 필드 체크
+    if (!userData.id) {
+      alert("아이디를 입력해주세요.");
+      inputId.current.focus(); // 아이디 필드로 포커스 이동
+      return;
+    } else if (!userData.password) {
+      alert("비밀번호를 입력해주세요.");
+      inputPass.current.focus(); // 비밀번호 필드로 포커스 이동
+      return;
+    } else if (!userData.confirmPassword) {
+      alert("비밀번호 확인을 입력해주세요.");
+      inputPass2.current.focus(); // 비밀번호 확인 필드로 포커스 이동
+      return;
+    } else if (!userData.name) {
+      alert("이름을 입력해주세요.");
+      inputName.current.focus(); // 이름 필드로 포커스 이동
+      return;
+    } else if (!userData.email || !inputEmail1.current.value) {
+      alert("이메일1을 입력해주세요.");
+      inputEmail1.current.focus(); // 이메일1 필드로 포커스 이동
+      return;
+    } else if (!userData.email || !inputEmail2.current.value) {
+      alert("이메일2를 입력해주세요.");
+      inputEmail2.current.focus(); // 이메일2 필드로 포커스 이동
+      return;
+    } else if (
+      !userData.phone ||
+      !inputPh1.current.value ||
+      !inputPh2.current.value ||
+      !inputPh3.current.value
+    ) {
+      alert("휴대폰 번호를 입력해주세요.");
+      if (!inputPh1.current.value) {
+        inputPh1.current.focus(); // 전화번호 첫 번째 부분에 포커스
+      } else if (!inputPh2.current.value) {
+        inputPh2.current.focus(); // 전화번호 두 번째 부분에 포커스
+      } else if (!inputPh3.current.value) {
+        inputPh3.current.focus(); // 전화번호 세 번째 부분에 포커스
+      }
+      return;
+    } else if (!userData.gender) {
+      alert("성별을 선택해주세요.");
+      return;
+    } else if (
+      !userData.jumin ||
+      !inputJumin1.current.value ||
+      !inputJumin2.current.value
+    ) {
+      alert("주민번호를 입력해주세요.");
+      if (!inputJumin1.current.value) {
+        inputJumin1.current.focus(); // 주민번호 첫 번째 부분에 포커스
+      } else if (!inputJumin2.current.value) {
+        inputJumin2.current.focus(); // 주민번호 두 번째 부분에 포커스
+      }
+      return;
+    } else if (!userData.address) {
+      alert("주소를 입력해주세요.");
+      inputAddr.current.focus(); // 주소 필드로 포커스 이동
+      return;
+    }
+
+    // 모든 필드가 채워졌으면, 회원가입 진행
+    fetch("http://localhost:84/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("회원가입 성공:", result);
+      })
+      .catch((error) => {
+        console.error("회원가입 오류:", error);
+      });
+
+    alert("회원가입 완료!");
+    goToLogin();
+  };
+
   return (
     <div>
       <table width="1400" height="650">
@@ -66,10 +170,13 @@ function Join({ goToHome }) {
               <hr />
               <br />
               <p align="left" style={{ paddingLeft: "160px" }}>
-                <br />
-                <br />
                 ID : <input type="text" ref={inputId} />
-                <input type="button" name="idChk" value="중복체크" />
+                <input
+                  type="button"
+                  name="idChk"
+                  value="중복체크"
+                  onClick={idCheck}
+                />
                 <br />
                 <br />
                 비밀번호 : <input type="password" ref={inputPass} />
@@ -120,8 +227,19 @@ function Join({ goToHome }) {
                 />
                 <br />
                 <br />
-                성별 : <input type="radio" ref={inputGender} /> 남자&nbsp;&nbsp;
-                <input type="radio" name="gender" value="여자" /> 여자
+                성별 :
+                <input
+                  type="radio"
+                  checked={gender === "male"}
+                  onClick={() => handleGenderClick("male")}
+                />{" "}
+                남자&nbsp;&nbsp;
+                <input
+                  type="radio"
+                  checked={gender === "female"}
+                  onClick={() => handleGenderClick("female")}
+                />{" "}
+                여자
                 <br />
                 <br />
                 주민번호 : <input
@@ -160,4 +278,5 @@ function Join({ goToHome }) {
     </div>
   );
 }
+
 export default Join;

@@ -1,7 +1,7 @@
 import "./App.css";
 import { Header } from "./components/Header";
 import Menu from "./components/Menu";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal } from "./components/Modal";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Join from "./components/Join";
@@ -86,7 +86,10 @@ function App() {
             </>
           }
         />
-        <Route path="/Join" element={<Join goToHome={goToHome} />} />
+        <Route
+          path="/Join"
+          element={<Join goToHome={goToHome} goToLogin={goToLogin} />}
+        />
         <Route path="/Login" element={<Login goToHome={goToHome} />} />
         <Route path="/foodMenu" element={<FoodMenu goToHome={goToHome} />} />
         <Route path="*" element={<>사용할수 없는 URL입니다.</>}></Route>
