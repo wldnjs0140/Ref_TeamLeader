@@ -1,11 +1,22 @@
 import { useState } from "react";
 
 const Menu = (props) => {
-  const { foods, setFoods, setDetailData, setShowModal, setModalMode } = props;
+  const {
+    memberId,
+    foods,
+    setFoods,
+    setDetailData,
+    setShowModal,
+    setModalMode,
+  } = props;
   const [searchType, setSearchType] = useState("전체");
 
   const Foodmenu = ({ menu, type }) => {
     const handleMenuDel = () => {
+      if (!memberId) {
+        alert("로그인 후 이용해주세요.");
+        return;
+      }
       setFoods((prev) =>
         prev.map((food) =>
           food.foodType === type
@@ -19,6 +30,10 @@ const Menu = (props) => {
     };
     // 로그인 세션 없으면 메뉴수정 못하게 수정
     const handleDetail = () => {
+      if (!memberId) {
+        alert("로그인 후 이용해주세요.");
+        return;
+      }
       setDetailData({ foodType: type, foodMenu: menu });
       setModalMode("upt");
       setShowModal(true);
@@ -33,6 +48,10 @@ const Menu = (props) => {
   };
 
   const handleTypeDel = (type) => {
+    if (!memberId) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
     setFoods((prev) => prev.filter((item) => item.foodType !== type));
   };
 
