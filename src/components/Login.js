@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-function Login({ setIsLoggedIn, goToHome }) {
+function Login({ handleLogin, goToHome }) {
   const inputId = useRef();
   const inputPass = useRef();
 
@@ -25,9 +25,9 @@ function Login({ setIsLoggedIn, goToHome }) {
 
       const result = await response.text(); // 서버에서 보내는 응답 메시지
       if (response.ok) {
-        alert(result); // "로그인 성공!" 출력
-        setIsLoggedIn(true); // 로그인 성공 시 부모로 상태 전달
-        goToHome(); // 홈으로 이동
+        alert(result);
+        handleLogin(idRef); // 부모 상태 업데이트
+        goToHome();
       } else {
         alert(result); // 오류 메시지 출력
       }

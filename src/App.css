@@ -1,7 +1,8 @@
 /* 전체 앱 컨테이너 */
 .app {
+  position: relative;
   font-family: Arial, sans-serif;
-  max-width: 800px;
+  max-width: 80%;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;

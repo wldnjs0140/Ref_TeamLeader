@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Menu = (props) => {
   const { foods, setFoods, setDetailData, setShowModal, setModalMode } = props;
-  const [searchType, setSearchType] = useState('전체');
+  const [searchType, setSearchType] = useState("전체");
 
   const Foodmenu = ({ menu, type }) => {
     const handleMenuDel = () => {
@@ -17,10 +17,10 @@ const Menu = (props) => {
         )
       );
     };
-
+    // 로그인 세션 없으면 메뉴수정 못하게 수정
     const handleDetail = () => {
       setDetailData({ foodType: type, foodMenu: menu });
-      setModalMode('upt');
+      setModalMode("upt");
       setShowModal(true);
     };
 
@@ -43,7 +43,7 @@ const Menu = (props) => {
   return (
     <div>
       <div className="menuBtn">
-        <button onClick={() => handleSearch('전체')}>전체</button>
+        <button onClick={() => handleSearch("전체")}>전체</button>
         {foods.map((food, idx) => (
           <button key={idx} onClick={() => handleSearch(food.foodType)}>
             {food.foodType}
@@ -52,11 +52,11 @@ const Menu = (props) => {
       </div>
 
       {foods
-        .filter((food) => searchType === '전체' || food.foodType === searchType)
+        .filter((food) => searchType === "전체" || food.foodType === searchType)
         .map((food, idx) => (
           <div key={idx} className="menuDiv">
             <h3>
-              {food.foodType}{' '}
+              {food.foodType}{" "}
               <button onClick={() => handleTypeDel(food.foodType)}>
                 타입 삭제
               </button>

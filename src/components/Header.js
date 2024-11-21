@@ -8,9 +8,20 @@ export const Header = ({
   goToJoin,
   goToLogin,
   goToMenu,
+  setModalMode,
+  setShowModal,
 }) => {
   const location = useLocation(); // 현재 경로 확인
   const [isLoggedInState, setIsLoggedInState] = useState(isLoggedIn);
+
+  const handleAdd = () => {
+    if (!isLoggedIn) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
+    setModalMode("add");
+    setShowModal(true);
+  };
 
   useEffect(() => {
     setIsLoggedInState(isLoggedIn); // 부모 컴포넌트에서 전달된 로그인 상태에 맞게 상태 업데이트
@@ -18,19 +29,19 @@ export const Header = ({
 
   const handleLogout = async () => {
     const confirmLogout = window.confirm("로그아웃 하시겠습니까?");
+    if (!confirmLogout) return;
+
     try {
       const response = await fetch("http://localhost:84/logout", {
         method: "POST",
-        credentials: "include", // 세션 쿠키를 포함하여 요청
+        credentials: "include", // 세션 쿠키 포함
       });
 
       if (response.ok) {
-        if (confirmLogout) {
-          setIsLoggedInState(false); // 로그인 상태 false로 변경
-          setIsLoggedIn(false); // 부모 컴포넌트로도 상태 변경 요청
-          alert("로그아웃 되었습니다.");
-          goToHome(); // 홈으로 이동
-        }
+        alert("로그아웃 되었습니다.");
+        setIsLoggedIn(false); // 부모 컴포넌트 상태 업데이트
+        sessionStorage.clear(); // 세션 스토리지 초기화
+        goToHome(); // 홈으로 이동
       } else {
         alert("로그아웃 실패");
       }
@@ -43,7 +54,7 @@ export const Header = ({
   return (
     <div className="header">
       {/* 로그인되지 않은 경우 */}
-      {location.pathname === "/" && !isLoggedIn && (
+      {location.pathname === "/" && !isLoggedInState && (
         <div className="header-logged-out">
           <h1>음식블로그</h1>
           <div className="header-buttons">
@@ -61,10 +72,11 @@ export const Header = ({
       )}
 
       {/* 로그인 중일 때 */}
-      {location.pathname === "/" && isLoggedIn && (
+      {location.pathname === "/" && isLoggedInState && (
         <div className="header-logged-in">
           <h1>음식블로그</h1>
           <div className="header-buttons">
+            <button onClick={() => handleAdd()}>추가</button>
             <button className="header-button" onClick={goToMenu}>
               메뉴판
             </button>

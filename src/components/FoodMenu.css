@@ -78,13 +78,13 @@
 }
 
 .like-button {
-  background-color: #4caf50;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
 }
 
 .dislike-button {
-  background-color: #f44336;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
 }
 
 .like-button:hover {
