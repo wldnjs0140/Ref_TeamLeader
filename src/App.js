@@ -9,6 +9,7 @@ import FoodMenu from "./components/FoodMenu";
 import Login from "./components/Login";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
   // const [fetchDataFoods, setFetchDataFoods] = useState();
 
   // useEffect(() => {
@@ -55,6 +56,8 @@ function App() {
 
       {/* 상단 헤더 */}
       <Header
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
         goToHome={goToHome}
         goToJoin={goToJoin}
         goToLogin={goToLogin}
@@ -90,7 +93,10 @@ function App() {
           path="/Join"
           element={<Join goToHome={goToHome} goToLogin={goToLogin} />}
         />
-        <Route path="/Login" element={<Login goToHome={goToHome} />} />
+        <Route
+          path="/Login"
+          element={<Login goToHome={goToHome} setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/foodMenu" element={<FoodMenu goToHome={goToHome} />} />
         <Route path="*" element={<>사용할수 없는 URL입니다.</>}></Route>
         {/* <Route path="/test/:aa" element={<TestRoute></TestRoute>}>
