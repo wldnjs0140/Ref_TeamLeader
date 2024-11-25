@@ -10,6 +10,8 @@ export const Header = ({
   goToMenu,
   setModalMode,
   setShowModal,
+  memberId,
+  goToUserList,
 }) => {
   const location = useLocation(); // 현재 경로 확인
   const [isLoggedInState, setIsLoggedInState] = useState(isLoggedIn);
@@ -53,6 +55,27 @@ export const Header = ({
 
   return (
     <div className="header">
+      {/* 관리자용 버튼 */}
+      {/* 회원정보 화면 */}
+      {location.pathname === "/userList" && (
+        <div className="header-user-list">
+          <h1>회원관리</h1>
+          <div className="header-buttons">
+            <button className="header-button" onClick={goToHome}>
+              홈
+            </button>
+            <button className="header-button" onClick={goToMenu}>
+              메뉴판
+            </button>
+            {isLoggedIn && (
+              <button className="header-button" onClick={handleLogout}>
+                로그아웃
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* 로그인되지 않은 경우 */}
       {location.pathname === "/" && !isLoggedInState && (
         <div className="header-logged-out">
@@ -83,6 +106,9 @@ export const Header = ({
             <button className="header-button" onClick={handleLogout}>
               로그아웃
             </button>
+            {memberId === "admin" && (
+              <button onClick={goToUserList}>회원관리</button>
+            )}
           </div>
         </div>
       )}
@@ -99,6 +125,9 @@ export const Header = ({
               <button className="header-button" onClick={handleLogout}>
                 로그아웃
               </button>
+            )}
+            {memberId === "admin" && (
+              <button onClick={goToUserList}>회원관리</button>
             )}
           </div>
         </div>

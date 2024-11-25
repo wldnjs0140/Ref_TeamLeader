@@ -38,7 +38,7 @@ function Login({ handleLogin, goToHome }) {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>로그인</h1>
       <label>
         아이디

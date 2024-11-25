@@ -40,6 +40,10 @@ function FoodMenu() {
     );
   };
 
+  const handleAddToCart = (food) => {
+    alert(`${food.FOOD}이(가) 담겼습니다.`);
+  };
+
   const categories = {
     kor: "한식",
     cha: "중식",
@@ -78,7 +82,14 @@ function FoodMenu() {
                     --- {food.PRICE} 원
                   </p>
                   <p className="food-description">- {food.DESCRIPTION}</p>
-                  <div className="button-container"></div>
+                  <div className="button-container">
+                    <button
+                      className="add-to-cart-button"
+                      onClick={() => handleAddToCart(food)}
+                    >
+                      담기
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

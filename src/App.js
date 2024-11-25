@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Join from "./components/Join";
 import FoodMenu from "./components/FoodMenu";
 import Login from "./components/Login";
+import UserList from "./components/UserList";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
@@ -49,6 +50,7 @@ function App() {
   const goToLogin = () => navigate("/Login");
   const goToHome = () => navigate("/");
   const goToMenu = () => navigate("/foodMenu");
+  const goToUserList = () => navigate("/userList");
 
   // 경고창 처리
   useEffect(() => {
@@ -68,6 +70,8 @@ function App() {
     <div className="app">
       {/* 상단 헤더 */}
       <Header
+        memberId={memberId}
+        goToUserList={goToUserList}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         goToHome={goToHome}
@@ -128,6 +132,11 @@ function App() {
           element={<Login goToHome={goToHome} handleLogin={handleLogin} />}
         />
         <Route path="/foodMenu" element={<FoodMenu goToHome={goToHome} />} />
+        <Route
+          path="/userList"
+          element={<UserList goToUserList={goToUserList} />}
+        />
+
         <Route path="*" element={<>사용할 수 없는 URL입니다.</>} />
       </Routes>
     </div>

@@ -157,124 +157,89 @@ function Join({ goToLogin }) {
   };
 
   return (
-    <div>
-      <table width="1400" height="650">
-        <tbody>
-          <tr>
-            <td width="100%" height="10%">
-              회원가입
-            </td>
-          </tr>
-          <tr>
-            <td height="60%" align="center" valign="top">
-              <hr />
-              <br />
-              <p align="left" style={{ paddingLeft: "160px" }}>
-                ID : <input type="text" ref={inputId} />
-                <input
-                  type="button"
-                  name="idChk"
-                  value="중복체크"
-                  onClick={idCheck}
-                />
-                <br />
-                <br />
-                비밀번호 : <input type="password" ref={inputPass} />
-                <br />
-                <br />
-                비밀번호 확인 :{" "}
-                <input
-                  type="password"
-                  size="15"
-                  maxLength="20"
-                  ref={inputPass2}
-                  id="pass2"
-                />
-                <br />
-                <br />
-                이름 : <input type="text" size="13" ref={inputName} id="name" />
-                <br />
-                <br />
-                이메일 :{" "}
-                <input type="text" size="15" ref={inputEmail1} id="email1" />
-                @
-                <input type="text" size="15" ref={inputEmail2} id="email2" />
-                <br />
-                <br />
-                휴대폰 :{" "}
-                <select name="ph1" ref={inputPh1}>
-                  <option value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="019">019</option>
-                </select>
-                -{" "}
-                <input
-                  type="text"
-                  ref={inputPh2}
-                  size="5"
-                  maxLength="4"
-                  id="ph2"
-                />{" "}
-                -{" "}
-                <input
-                  type="text"
-                  ref={inputPh3}
-                  size="5"
-                  maxLength="4"
-                  id="ph3"
-                />
-                <br />
-                <br />
-                성별 :
-                <input
-                  type="radio"
-                  checked={gender === "male"}
-                  onClick={() => handleGenderClick("male")}
-                />{" "}
-                남자&nbsp;&nbsp;
-                <input
-                  type="radio"
-                  checked={gender === "female"}
-                  onClick={() => handleGenderClick("female")}
-                />{" "}
-                여자
-                <br />
-                <br />
-                주민번호 : <input
-                  type="text"
-                  ref={inputJumin1}
-                  id="jumin1"
-                /> - <input type="password" ref={inputJumin2} />
-                <br />
-                <br />
-                주소 :{" "}
-                <input type="text" ref={inputAddr} size="15" maxLength="15" />
-                <br />
-                *주소는 (시/도)만 입력해주세요 (예: 경기도, 서울특별시, 경상남도
-                등)
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td align="center">
-              <hr />
-              <br />
+    <div className="signup-container">
+      <h2>회원가입</h2>
+      <hr />
+      <label>
+        <span>ID</span>
+        <div className="inline-group">
+          <input type="text" ref={inputId} />
+          <input type="button" value="중복체크" onClick={idCheck} />
+        </div>
+      </label>
+      <label>
+        <span>비밀번호</span>
+        <input type="password" ref={inputPass} />
+      </label>
+      <label>
+        <span>비밀번호 확인</span>
+        <input type="password" ref={inputPass2} />
+      </label>
+      <label>
+        <span>이름</span>
+        <input type="text" ref={inputName} />
+      </label>
+      <label>
+        <span>이메일</span>
+        <div className="flex-input">
+          <input type="text" ref={inputEmail1} />
+          &nbsp;&nbsp;@&nbsp;&nbsp;
+          <input type="text" ref={inputEmail2} />
+        </div>
+      </label>
+      <label>
+        <span>휴대폰</span>
+        <div className="ph">
+          <select ref={inputPh1}>
+            <option value="010">010</option>
+            <option value="011">011</option>
+          </select>
+          -
+          <input type="text" ref={inputPh2} maxLength="4" /> -
+          <input type="text" ref={inputPh3} maxLength="4" />
+        </div>
+      </label>
+      <label>
+        <div class="gender-group">
+          <span>성별</span>
+          <div className="inline-group">
+            <label>
+              남자
               <input
-                type="button"
-                id="regi_btn"
-                value="가입신청"
-                onClick={() => JoinProc()}
+                type="radio"
+                checked={gender === "male"}
+                onClick={() => handleGenderClick("male")}
               />
-              &nbsp;
-              <input type="reset" value="다시입력" />
-              &nbsp;
-              <input type="button" value="취소" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </label>
+            <label>
+              여자
+              <input
+                type="radio"
+                checked={gender === "female"}
+                onClick={() => handleGenderClick("female")}
+              />
+            </label>
+          </div>
+        </div>
+      </label>
+      <label>
+        <span>주민번호</span>
+        <div className="flex-input">
+          <input type="text" ref={inputJumin1} />
+          &nbsp;&nbsp;- &nbsp;&nbsp;
+          <input type="password" ref={inputJumin2} />
+        </div>
+      </label>
+      <label>
+        <span>주소</span>
+        <input type="text" ref={inputAddr} placeholder="(시/도만 입력)" />
+      </label>
+      <hr />
+      <div className="button-group">
+        <input type="button" value="가입신청" onClick={() => JoinProc()} />
+        <input type="reset" value="다시입력" />
+        <input type="button" value="취소" />
+      </div>
     </div>
   );
 }

@@ -221,3 +221,246 @@
     transform: translateY(0);
   }
 }
+.alert-box {
+  animation: slideDown 0.5s ease-out;
+}
+/* 로그인 컴포넌트 스타일 */
+.login-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%; /* 화면 크기에 따라 조정 */
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-container h1 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.login-container label span {
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.login-container button {
+  background-color: #ff8c00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  font-size: 1em;
+  width: 100%; /* 버튼도 100% */
+}
+
+.login-container button:hover {
+  transform: scale(1.05);
+  background-color: #ff6a00;
+}
+
+/* 회원가입 컴포넌트 스타일 */
+.signup-container {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.signup-container label {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+  gap: 10px; /* 간격 최소화 */
+  margin-bottom: 20px; /* 태그 간 간격 */
+  cursor: pointer;
+}
+
+.signup-container label span {
+  font-size: 1.1em;
+  font-weight: bold;
+  width: 15%;
+  margin-right: 20px;
+  color: #555;
+  min-width: 100px; /* 최소 너비 */
+  text-align: left; /* 텍스트 정렬 */
+  cursor: pointer;
+}
+.signup-container input:first-child {
+  width: 30%;
+}
+.signup-container input,
+.signup-container select {
+  width: calc(80% - 50%); /* 입력 필드 크기 */
+  padding: 12px; /* 내부 여백 */
+  border-radius: 5px; /* 둥근 테두리 */
+  border: 1px solid #ddd; /* 연한 테두리 */
+  font-size: 1em;
+}
+.signup-container .ph {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 각 요소 간 간격 */
+}
+
+.signup-container input:focus,
+.signup-container select:focus {
+  border-color: #ff8c00; /* 포커스 시 오렌지 테두리 */
+  box-shadow: 0px 0px 5px rgba(255, 140, 0, 0.5); /* 포커스 효과 */
+}
+
+.signup-container .inline-group {
+  display: flex;
+  vertical-align: middle;
+  gap: 20px; /* 각 필드 간의 간격 */
+  cursor: pointer;
+}
+
+/* 성별 하위 태그 가운데 정렬 */
+.signup-container label .gender-group {
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  margin-bottom: 0;
+  gap: 15px; /* 남자, 여자 간 간격 */
+}
+.signup-container label .gender-group div {
+  margin-left: 15px;
+  padding-top: 15px;
+}
+.signup-container input[type="radio"] {
+  width: 20px; /* 라디오 버튼 크기 */
+  height: 20px;
+  cursor: pointer;
+}
+
+.signup-container input[type="button"],
+.signup-container input[type="reset"] {
+  background-color: #ff8c00;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.signup-container input[type="button"]:hover,
+.signup-container input[type="reset"]:hover {
+  background-color: #ff6a00; /* hover 시 색상 */
+  transform: scale(1.05); /* 크기 확대 */
+}
+
+.signup-container hr {
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.signup-container .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.signup-container .button-group input {
+  flex: 1; /* 버튼 크기 균등 */
+  text-align: center;
+}
+.user-management {
+  margin: 20px;
+  position: relative; /* 버튼 위치 기준 설정 */
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+.bulk-update-btn {
+  position: absolute;
+  top: 20px; /* 상단에서 20px 떨어진 위치 */
+  right: 4px; /* 오른쪽에서 20px 떨어진 위치 */
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bulk-update-btn:hover {
+  background-color: #45a049;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+  user-select: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.user-table th:hover:nth-child(3) {
+  color: #000;
+}
+.user-table th:hover {
+  color: #4caf50;
+}
+
+.user-row:hover {
+  background-color: rgb(185, 175, 175);
+  cursor: pointer;
+}
+
+.detail-row {
+  background-color: #fdfdfd;
+}
+
+.user-detail {
+  padding: 10px;
+  text-align: left;
+}
+
+.user-detail p {
+  margin: 5px 0;
+}
